@@ -2,7 +2,6 @@ package com.lojavirtual.resources;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -15,30 +14,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.lojavirtual.domain.Produto;
-import com.lojavirtual.services.ProdutoService;
+import com.lojavirtual.domain.Cliente;
+import com.lojavirtual.services.ClienteService;
 
 @RestController
-@RequestMapping(value="/produtos")
-public class ProdutoResource {
+@RequestMapping(value="/clientes")
+public class ClienteResource {
 	
 	@Autowired
-	private ProdutoService service;
+	private ClienteService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public Produto getById(@PathVariable Integer id) {
+	public Cliente getById(@PathVariable Integer id) {
 		return service.find(id);
 	}
 	
 	@RequestMapping(value = "/create",method = RequestMethod.POST)
-    public ResponseEntity<Produto> insert(@Valid @RequestBody Produto produto) {
-        produto = service.insert(produto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(produto.getId()).toUri();
+    public ResponseEntity<Cliente> insert(@Valid @RequestBody Cliente cliente) {
+        cliente = service.insert(cliente);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public List<Produto> list(){
+	public List<Cliente> list(){
 		return service.findAll();
 	} 
 }

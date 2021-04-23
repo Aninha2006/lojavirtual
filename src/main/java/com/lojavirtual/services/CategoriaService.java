@@ -24,6 +24,10 @@ public class CategoriaService {
 		return categoria.orElseThrow(()-> new ObjectNotFoundException("Categoria não encontrada! Id: " + id + ", tipo: "+ Categoria.class.getName()));
 	}
 	
+	public List<Categoria> findAll(){
+		return repository.findAll();
+	}
+	
 	@Transactional
     public Categoria insert(Categoria categoria) {
         categoria.setId(null);
@@ -31,8 +35,8 @@ public class CategoriaService {
         return categoria;
     }
 	
-	public List<Categoria> findAll(){
-		return repository.findAll();
-	}
-
+//	public Categoria update(Categoria categoria) {
+//		categoria = find(categoria.getId());
+//		return repository.save(categoria);
+//	}
 }

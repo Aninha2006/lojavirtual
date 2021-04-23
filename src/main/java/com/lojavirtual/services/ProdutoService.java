@@ -8,8 +8,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lojavirtual.domain.Categoria;
 import com.lojavirtual.domain.Produto;
 import com.lojavirtual.repositories.ProdutoRepository;
+import com.lojavirtual.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ProdutoService {
@@ -18,9 +20,9 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository repository;
 	
-	public Optional<Produto> find(Integer id) {
+	public Produto find(Integer id) {
 		Optional<Produto> produto = repository.findById(id);
-		return produto;
+		return produto.orElseThrow(()-> new ObjectNotFoundException("Produto não encontrada! Id: " + id + ", tipo: "+ Produto.class.getName()));
 	}
 	
 	@Transactional
