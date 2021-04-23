@@ -1,15 +1,20 @@
 package com.lojavirtual.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
-@Table(name="categoria")
+@Table(name="CATEGORIA")
 public class Categoria implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -19,6 +24,10 @@ public class Categoria implements Serializable {
 	private Integer id;
 	
 	private String nome;
+	
+	@ManyToMany(mappedBy = "categorias")
+	@JsonManagedReference
+	private List<Produto> produtos = new ArrayList<>();
 
 	public Categoria() {
 		super();
@@ -44,6 +53,14 @@ public class Categoria implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 
 	@Override
