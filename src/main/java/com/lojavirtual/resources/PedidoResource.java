@@ -13,30 +13,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.lojavirtual.domain.Produto;
-import com.lojavirtual.services.ProdutoService;
+import com.lojavirtual.domain.Pedido;
+import com.lojavirtual.services.PedidoService;
 
 @RestController
-@RequestMapping(value="/produtos")
-public class ProdutoResource {
+@RequestMapping(value="/pedidos")
+public class PedidoResource {
 	
 	@Autowired
-	private ProdutoService service;
+	private PedidoService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public Produto getById(@PathVariable Integer id) {
+	public Pedido getById(@PathVariable Integer id) {
 		return service.find(id);
 	}
 	
 	@RequestMapping(value = "/create",method = RequestMethod.POST)
-    public ResponseEntity<Produto> insert(@Valid @RequestBody Produto produto) {
-        produto = service.insert(produto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(produto.getId()).toUri();
+    public ResponseEntity<Pedido> insert(@Valid @RequestBody Pedido pedido) {
+        pedido = service.insert(pedido);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pedido.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public List<Produto> list(){
+	public List<Pedido> list(){
 		return service.findAll();
 	} 
 }
