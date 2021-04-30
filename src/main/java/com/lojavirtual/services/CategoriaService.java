@@ -15,7 +15,6 @@ import com.lojavirtual.services.exceptions.ObjectNotFoundException;
 @Service
 public class CategoriaService {
 	
-	
 	@Autowired
 	private CategoriaRepository repository;
 	
